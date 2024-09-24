@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PenjualanController;
+
 
 use function PHPUnit\Framework\isNull;
 
@@ -44,3 +49,16 @@ Route::get('/greeting', function () {
 
 // PERCOBAAN 3 Langkah 9
 Route::get('/greeting', [WelcomeController::class,'greeting']);
+
+// SOAL Praktikum
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::prefix('category')->group(function () {
+    Route::get('food-beverage', [ProductController::class, 'foodBeverage'])->name('products.food-beverage');
+    Route::get('beauty-health', [ProductController::class, 'beautyHealth'])->name('products.beauty-health');
+    Route::get('baby-kid', [ProductController::class, 'babyKid'])->name('products.baby-kid');
+});
+
+Route::get('user/{id}/name/{name}', [UserController::class, 'show'])->name('user.profile');
+
+Route::get('penjualan', [PenjualanController::class, 'index'])->name('penjualan');
